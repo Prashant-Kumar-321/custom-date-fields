@@ -113,7 +113,6 @@ class Comment{
     }
 }
 
-
 const comment = new Comment(2,3,"Nice Explanation", "20:00:00", "2024-08-5");
 console.log(comment.timePassed());
 
