@@ -6,7 +6,7 @@
     --dark-text: #f8fbff; 
 
     --light-body: #f3f8fe; 
-    --light-main: #fdfdfd; 
+    --light-main: #fdfdfd;  
     --light-second: #c3c2c8; 
     --light-hover: #edf0f5; 
     --light-text: #151426; 
@@ -18,6 +18,8 @@
     --font-family: cursive;  
 }
 
+/* .dark and .light class will go to the same element depending upon theme */
+
 .dark{
     --bg-body: var(--dark-body); 
     --bg-main: var(--dark-main); 
@@ -26,13 +28,15 @@
     --color-txt: var(--dark-text); 
 }
 
-.light {
+.light{
     --bg-body: var(--light-body); 
     --bg-main: var(--light-main); 
     --bg-second: var(--light-second); 
     --color-hover: var(--light-hover); 
     --color-txt: var(--light-text); 
 }
+
+/* CSS RESET */
 
 *{
     padding: 0; 
@@ -53,7 +57,7 @@ body {
     width: max-content; 
     background-color: var(--bg-main);
     border-radius: 30px; 
-    padding: 20px; 
+    padding: 20px; /*  */
     position: relative; 
     overflow: hidden;
 } 
@@ -66,21 +70,21 @@ body {
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    font-size: 25px; 
-    font-weight: 600; 
+    font-size: 25px; /*  */
+    font-weight: 600; /*  */
     color: var(--color-txt); 
-    padding: 10px;        
+    padding: 10px;       /*  */ 
 }
 
 .calender-body{
-    padding: 10px;  
+    padding: 10px;  /*  */
 }
 
 .calender-week-day{
     display: grid;
     grid-template-columns: repeat(7, 1fr); 
     font-weight: 600;
-    height: 40px; 
+    height: 40px; /*  */
 }
 .calender-week-day div{
     display: grid;
@@ -97,12 +101,12 @@ body {
 }
 
 .calender-days div{
-    width: 50px; 
-    height: 50px; 
+    width: 50px; /*  */
+    height: 50px; /*  */
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    padding: 5px; 
+    padding: 5px; /*  */
     position: relative; 
     cursor: pointer; 
 
@@ -124,7 +128,7 @@ body {
 }
 
 .month-picker{
-    padding: 5px 10px; 
+    padding: 5px 10px; /*  */
     border-radius: 10px; 
     cursor: pointer; 
 }
@@ -140,12 +144,12 @@ body {
 }
 
 .year-change{
-    width: 40px; 
-    height: 40px; 
+    width: 40px; /*  */
+    height: 40px; /*  */
     border-radius: 50%; 
     display: grid; 
     place-items: center; 
-    margin: 0 10px; 
+    margin: 0 10px; /*  */
     cursor: pointer; 
 }
 
@@ -157,7 +161,7 @@ body {
     display: flex; 
     justify-content: flex-end;
     align-items: center;
-    padding: 10px; 
+    padding: 10px; /*  */
 }
 
 .toggle{
@@ -165,14 +169,14 @@ body {
 }
 
 .toggle span{
-    margin-right: 10px; 
+    margin-right: 10px; /*  */
     color: var(--color-txt); 
 }
 
 .dark-mode-switch {
     position: relative; 
-    width: 48px; 
-    height: 25px; 
+    width: 48px; /*  */
+    height: 25px; /*  */
     border-radius: 14px; 
     background-color: var(--bg-second); 
 }
@@ -182,8 +186,8 @@ body {
     left: 2px;  
     top: 50%;
     transform: translateY(-50%);  
-    width: 20px; 
-    height: 20px; 
+    width: 20px; /*  */
+    height: 20px; /*  */
     border-radius: 50%;  
     background-color: var(--bg-main);
     cursor: pointer;
@@ -196,7 +200,7 @@ body {
     left: calc(2px + 50%); 
 }
 
-/* Date border Animation */
+/* DAY border Animation */
 .calender-days div span{
     position: absolute; 
 }
@@ -246,7 +250,7 @@ body {
 }
 
 .calender-days div:hover span:nth-child(2) {
-     transition-delay: 0.2s; 
+    transition-delay: 0.2s; 
 }
 .calender-days div:hover span:nth-child(3) {
     transition-delay: 0.4s; 
@@ -276,7 +280,7 @@ body {
     grid-template-columns: repeat(3, auto);
     gap: 5px; 
     background-color: var(--bg-main); 
-    padding: 20px; 
+    padding: 20px; /*  */
     color: var(--color-txt); 
     visibility: hidden; 
     transform: scale(1.5); 
@@ -307,4 +311,27 @@ body {
     background-color: var(--color-hover);
 }
 
+/* MEDIA QUERY */
+@media only screen and (max-width: 620px){
 
+    .calender-header{
+        font-size: 15px; 
+        padding: 5px;  
+    }
+
+    .year-change{
+        width: 20px; 
+        height: 20px; 
+    }
+
+    .calender-body{
+        padding: 5px; 
+    }
+    .calender-days div{
+        width: 30px; 
+        height: 30px;
+    }
+    .month-list .month div{
+        padding: 0; 
+    }
+}
