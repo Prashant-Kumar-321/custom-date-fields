@@ -119,17 +119,17 @@ month_picker.onclick = event => {
 
 
 /* WINDOW RESIZE */
-let windowSize = window.innerWidth; 
-window.addEventListener('resize', event => {
-    windowSize = window.innerWidth; 
-    if(windowSize <= 620){
-        callback(); 
-    }
-}); 
+// let windowSize = window.innerWidth; 
+// window.addEventListener('resize', event => {
+//     windowSize = window.innerWidth; 
+//     if(windowSize <= 620){
+//         callback(); 
+//     }
+// }); 
 
-function callback(){
-    console.log(`You have resized your screen and Now your screen size is ${windowSize}`);
-}
+// function callback(){
+//     console.log(`You have resized your screen and Now your screen size is ${windowSize}`);
+// }
 
 // I want this to be executed when page is loaded for the first time from server in the user's device
 
