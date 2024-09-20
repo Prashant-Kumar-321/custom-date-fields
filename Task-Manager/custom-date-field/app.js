@@ -4,18 +4,21 @@ const toDateField = document.getElementById('to-date-field');
 const taskTimeSpanField = document.querySelector('.task-time-span-field'); 
 
 fromDateField.onclick = event => {
-
     if(taskTimeSpanField.classList.contains('to')){
-        taskTimeSpanField.classList.toggle('show'); 
+        taskTimeSpanField.classList.toggle('show'); // remove show class 
     } 
 
     taskTimeSpanField.classList.toggle('show'); 
     taskTimeSpanField.classList.remove('to'); 
     taskTimeSpanField.classList.toggle('from'); 
+
+    /* Positioning to left */
+    const calendar = document.querySelector('.calendar');
+    calendar.style.left =  0; 
+    calendar.style.right = '';
 }
 
 toDateField.onclick = event => {
-
     if(taskTimeSpanField.classList.contains('from')){
         taskTimeSpanField.classList.toggle('show'); 
     } 
@@ -23,8 +26,12 @@ toDateField.onclick = event => {
     taskTimeSpanField.classList.toggle('show'); 
     taskTimeSpanField.classList.remove('from'); 
     taskTimeSpanField.classList.toggle('to'); 
-}
 
+    /* Positioning to right */
+    const calendar = document.querySelector('.calendar'); 
+    calendar.style.left = ''; 
+    calendar.style.right = 0; 
+}
 
 /* GENERATE CALENDER */
 const days = document.querySelector('.days'); 
@@ -70,7 +77,60 @@ const generateCalendar = (month, year) => {
     generateDays(month, year, first_day_of_week); 
 }
 
+/* Global variable for date */
 let current_date = new Date(); 
 let current_month = {"value": current_date.getMonth(),}; 
 let current_year = {"value": current_date.getFullYear(),}; 
 generateCalendar(current_month.value, current_year.value);
+
+/* YEAR CHANGE */
+const prevYr = document.getElementById('prev-year'); 
+const nextYr = document.getElementById('next-year');
+const monthPicker = document.querySelector('.month-picker'); 
+const yearPicker  = document.querySelector('.year-picker'); 
+
+let counter = 0; 
+let intervalId = null; 
+
+const updateYear = (opr) => {
+    if(opr === 'INCREMENT')
+        current_year.value++;
+    else
+        current_year.value--;
+
+    generateCalendar(current_month.value, current_year.value); 
+    if(current_year.value < 0){
+        yearPicker.innerHTML = `${Math.abs(current_year.value)} BC`; 
+    }
+    else{
+        yearPicker.innerHTML = current_year.value;  
+    }
+}
+
+prevYr.onmousedown = e => {
+    updateYear('DECREMENT')
+    intervalId = setInterval(() => {
+        updateYear('DECREMENT'); 
+    }, 300);
+}
+
+prevYr.onmouseup = e => {
+    clearInterval(intervalId); 
+    intervalId = null; 
+}
+
+nextYr.onmousedown = e => {
+    updateYear('INCREMENT'); 
+    intervalId = setInterval(()=>{
+        updateYear('INCREMENT'); 
+    }, 300);  
+}
+
+nextYr.onmouseup = e => {
+   clearInterval(intervalId);
+   intervalId = null; 
+}
+
+/* MONTH CHANGE */
+// continuee 
+

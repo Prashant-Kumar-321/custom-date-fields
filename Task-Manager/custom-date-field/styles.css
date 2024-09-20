@@ -12,17 +12,7 @@ body{
     min-height: 100vh; 
 }
 
-.from{
-    --left-position: 0; 
-}
-
-.to{
-    --left-position: calc(100% - 150px); 
-}
-
 .task-time-span-field{
-    width: 300px; 
-    margin: 0 auto; 
     position: relative; 
     display: flex; 
     justify-content: space-between; 
@@ -56,14 +46,11 @@ body{
     color: #9d9d9d; 
 }
 
-.calendar{
+.calendar {
     position: absolute; 
-    /* width: 150px; 
-    height: 30px;  */
     border: 2px solid #dde8ff; 
     border-radius: 5px; 
-    top: 110%; 
-    left: var(--left-position);
+    top: 120%; 
     display: none;  
 }
 
