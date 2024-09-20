@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="task-time-span-field show from">
+    <div class="task-time-span-field">
         <div class="date-field" id="from-date-field">
             <div class="text text-size faded-color">From</div>
             <div class="selected-date">
-                <input type="text" readonly value="16/09/2024" class="text-size">
+                <input type="text" readonly value="16/09/2024" class="text-size" id="fromDate">
             </div>
             <div class="icon faded-color">
                 <i class="fa-regular fa-calendar-days text-size"></i>
@@ -23,7 +23,7 @@
         <div class="date-field" id="to-date-field">
             <div class="text text-size faded-color">To</div>
             <div class="selected-date">
-                <input type="text" readonly value="19/09/2024" class="text-size">
+                <input type="text" readonly value="19/09/2024" class="text-size" id="toDate">
             </div>
             <div class="icon faded-color">
                 <i class="fa-regular fa-calendar-days text-size"></i>
@@ -66,7 +66,7 @@
                     <div class="day">7</div>
                 </div>
             </div>
-            <!-- <div class="month-list"></div> -->
+            <div class="month-list"></div>
         </div>
     </div>
 

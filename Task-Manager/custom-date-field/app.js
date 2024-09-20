@@ -1,3 +1,21 @@
+
+/* YEAR CHANGE */
+const prevYr = document.getElementById('prev-year'); 
+const nextYr = document.getElementById('next-year');
+const monthPicker = document.querySelector('.month-picker'); 
+const yearPicker  = document.querySelector('.year-picker'); 
+
+/* Global variable for date */
+let current_date = new Date(); 
+let current_month = {"value": current_date.getMonth(),}; 
+let current_year = {"value": current_date.getFullYear(),};
+
+const monthList = document.querySelector('.month-list'); 
+
+/* DATE INPUT FIELD */
+const fromDate = document.getElementById('fromDate'); 
+const toDate = document.getElementById('toDate'); 
+
 /* SHOW CALENDAR */
 const fromDateField = document.getElementById('from-date-field'); 
 const toDateField = document.getElementById('to-date-field'); 
@@ -46,6 +64,10 @@ const isToday = (date, month, year) => {
     return (today.getFullYear() === year && today.getMonth() === month && date === today.getDate()); 
 }
 
+function format(num){
+    return num.toString().padStart(2, '0'); 
+}
+
 const generateDays = (month, year, first_day_of_week) => {
     const days_in_month = [31, getFebdays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     days.innerHTML = ''; // Removing previous days entirely 
@@ -60,11 +82,26 @@ const generateDays = (month, year, first_day_of_week) => {
             // ADD PRESSED EVENT HANDLER 
             day.onmousedown = event => {
                 event.target.classList.add('pressed');
+
+                // Add date to input field 
+                const fromTimeStamp = taskTimeSpanField.classList.contains('from') ? true: false;  
+                const year = yearPicker.innerHTML; 
+                const month = current_month.value+1;
+                const fullDate = `${format(date)}/${format(month)}/${year}`; 
+                if(fromTimeStamp){
+                    fromDate.value = fullDate; 
+                }else{
+                    toDate.value = fullDate; 
+                }
             }
+
             day.onmouseup = event => {
-                event.target.classList.remove('pressed'); 
+                event.target.classList.remove('pressed');
+                // Close calendar
+                taskTimeSpanField.classList.remove('show'); 
             }
         }
+
         days.appendChild(day); 
     }
 }
@@ -77,19 +114,10 @@ const generateCalendar = (month, year) => {
     generateDays(month, year, first_day_of_week); 
 }
 
-/* Global variable for date */
-let current_date = new Date(); 
-let current_month = {"value": current_date.getMonth(),}; 
-let current_year = {"value": current_date.getFullYear(),}; 
+/* GENERATE CALENDER ENDS HERE ...................... */
 generateCalendar(current_month.value, current_year.value);
 
 /* YEAR CHANGE */
-const prevYr = document.getElementById('prev-year'); 
-const nextYr = document.getElementById('next-year');
-const monthPicker = document.querySelector('.month-picker'); 
-const yearPicker  = document.querySelector('.year-picker'); 
-
-let counter = 0; 
 let intervalId = null; 
 
 const updateYear = (opr) => {
@@ -131,6 +159,29 @@ nextYr.onmouseup = e => {
    intervalId = null; 
 }
 
-/* MONTH CHANGE */
-// continuee 
+/* YEAR CHANGE ENDS HERE.......................... */
 
+/* MONTH CHANGE */
+
+// Creating Month list
+
+months_name.forEach((month, index) => {
+    const monthDiv = document.createElement('div'); 
+    monthDiv.innerHTML = `<div>${month} </div>`;
+    monthDiv.classList.add('month'); 
+    
+    monthList.appendChild(monthDiv);
+    
+    // add an on click event listener 
+    monthDiv.onclick = e => {
+        monthList.classList.remove('show'); 
+
+        monthPicker.innerHTML = month;
+        current_month.value = index; 
+        generateCalendar(index, current_year.value); 
+    }
+}); 
+
+monthPicker.onclick = e => {
+    monthList.classList.add('show'); 
+}
