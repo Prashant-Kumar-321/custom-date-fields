@@ -1,11 +1,14 @@
 // Animal abstract class 
 class Animal{
-    constructor(){
-        if(new.target ===  Animal){
-            throw new Error("Abstract class Animal cannot be instantiated"); 
+    // Mimicing of private constructor 
+    constructor() {
+        if(new.target ===  Animal) {
+            throw new TypeError("Abstract class Animal cannot be instantiated"); 
         }
     }
-    // These abstract class methods are intended to be implemented in sub classes 
+    
+    // These abstract class methods are intended to be implemented in sub classes
+    // Pure virtual Function of CPP  
     sound() {
         throw new Error("Must be implemented in sub classes"); 
     }
@@ -56,7 +59,7 @@ function main1(){
         console.log(error.message);
     }
 }
-main1(); 
+// main1(); 
 
 // Instantiating sub classes 
 function main2(){
@@ -74,5 +77,27 @@ function main2(){
     animal = new Cat; 
     animal.sound(); 
 }
-main2(); 
+// main2();
+
+class A{
+    // Private uninitialized Properties 
+    #x; 
+    #y; 
+
+    constructor(x,y) {
+        if( x===undefined || y === undefined){
+            throw TypeError("Two Arguments are required"); 
+        } 
+        this.x = x; 
+        this.y = y; 
+    }
+
+    display(){
+        console.log(`X = ${this.x}, Y = ${this.y}`); 
+    }
+}
+
+// const obj = new A(); 
+const obj1 = new A(2, 3); 
+obj1.display(); 
  
