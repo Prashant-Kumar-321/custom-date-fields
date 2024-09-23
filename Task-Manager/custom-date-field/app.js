@@ -21,6 +21,32 @@ const fromDateField = document.getElementById('from-date-field');
 const toDateField = document.getElementById('to-date-field'); 
 const taskTimeSpanField = document.querySelector('.task-time-span-field'); 
 
+
+
+/* Utility Method for positioning Calendar in mobile devices */
+function isMobileDevice(){
+    return window.innerWidth <= 550; 
+}
+
+function positionCalendarCenter(isFrom = false) {
+        const calendar = document.querySelector('.calendar');
+        calendar.style.left =  '50%'; 
+        calendar.style.transform  = 'translateX(-50%)'; 
+        calendar.style.right = '';
+
+        if(isFrom){
+            console.log("From Date Field"); 
+            const height = toDateField.offsetHeight;
+            const heightDateContainer = taskTimeSpanField.offsetHeight;  
+            calendar.style.top = `${heightDateContainer - height - 5}px`; 
+        }
+        else{
+            calendar.style.top = '120%'; 
+        }
+}
+
+
+
 fromDateField.onclick = event => {
     if(taskTimeSpanField.classList.contains('to')){
         taskTimeSpanField.classList.toggle('show'); // remove show class 
@@ -29,6 +55,13 @@ fromDateField.onclick = event => {
     taskTimeSpanField.classList.toggle('show'); 
     taskTimeSpanField.classList.remove('to'); 
     taskTimeSpanField.classList.toggle('from'); 
+
+    if(isMobileDevice()){
+        console.log("Mobile Device"); 
+        positionCalendarCenter(isFrom=true); 
+        return 
+    }
+
 
     /* Positioning to left */
     const calendar = document.querySelector('.calendar');
@@ -44,6 +77,12 @@ toDateField.onclick = event => {
     taskTimeSpanField.classList.toggle('show'); 
     taskTimeSpanField.classList.remove('from'); 
     taskTimeSpanField.classList.toggle('to'); 
+
+    if(isMobileDevice()){
+        console.log("Mobile Device"); 
+        positionCalendarCenter(); 
+        return 
+    }
 
     /* Positioning to right */
     const calendar = document.querySelector('.calendar'); 
@@ -185,3 +224,7 @@ months_name.forEach((month, index) => {
 monthPicker.onclick = e => {
     monthList.classList.add('show'); 
 }
+
+
+
+/* Styling Position of calender for smaller device */

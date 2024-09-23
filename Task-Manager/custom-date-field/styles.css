@@ -184,3 +184,16 @@ body{
 .month-list .month div:hover{
     background-color: white; 
 }
+
+
+/* MEDAI QUERY */
+    /* SMALLER DEVICE */
+        /* CALENDER POSITION */
+@media only screen and (max-width: 550px){
+    .calendar{
+        top: 120%;  
+        left: 50%;  
+        transform: translateY(-50%); 
+    }
+}
+
