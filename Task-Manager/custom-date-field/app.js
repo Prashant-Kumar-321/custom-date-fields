@@ -20,36 +20,18 @@ const toDate = document.getElementById('toDate');
 const fromDateField = document.getElementById('from-date-field'); 
 const toDateField = document.getElementById('to-date-field'); 
 const taskTimeSpanField = document.querySelector('.task-time-span-field'); 
+const calendar = document.querySelector('.calendar');
 
 
 
 /* Utility Method for positioning Calendar in mobile devices */
 function isMobileDevice(){
-    return window.innerWidth <= 550; 
+    return window.innerWidth <= 555; 
 }
-
-function positionCalendarCenter(isFrom = false) {
-        const calendar = document.querySelector('.calendar');
-        calendar.style.left =  '50%'; 
-        calendar.style.transform  = 'translateX(-50%)'; 
-        calendar.style.right = '';
-
-        if(isFrom){
-            console.log("From Date Field"); 
-            const height = toDateField.offsetHeight;
-            const heightDateContainer = taskTimeSpanField.offsetHeight;  
-            calendar.style.top = `${heightDateContainer - height - 5}px`; 
-        }
-        else{
-            calendar.style.top = '120%'; 
-        }
-}
-
-
 
 fromDateField.onclick = event => {
     if(taskTimeSpanField.classList.contains('to')){
-        taskTimeSpanField.classList.toggle('show'); // remove show class 
+        taskTimeSpanField.classList.remove('show'); // remove show class 
     } 
 
     taskTimeSpanField.classList.toggle('show'); 
@@ -57,21 +39,24 @@ fromDateField.onclick = event => {
     taskTimeSpanField.classList.toggle('from'); 
 
     if(isMobileDevice()){
-        console.log("Mobile Device"); 
-        positionCalendarCenter(isFrom=true); 
-        return 
+        const removingClasses = ['large', 'left-from', 'right-to', 'to']; 
+        removingClasses.forEach(cls => {calendar.classList.remove(cls)}); 
+        calendar.classList.add('mobile');
+        calendar.classList.add('from');
+        return; 
+    }
+    else{
+        const removingClasses = ['mobile', 'from', 'to', 'right']; 
+        removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+        calendar.classList.add('large'); 
+        calendar.classList.add('left-from'); 
     }
 
-
-    /* Positioning to left */
-    const calendar = document.querySelector('.calendar');
-    calendar.style.left =  0; 
-    calendar.style.right = '';
 }
 
 toDateField.onclick = event => {
     if(taskTimeSpanField.classList.contains('from')){
-        taskTimeSpanField.classList.toggle('show'); 
+        taskTimeSpanField.classList.remove('show'); 
     } 
 
     taskTimeSpanField.classList.toggle('show'); 
@@ -79,17 +64,19 @@ toDateField.onclick = event => {
     taskTimeSpanField.classList.toggle('to'); 
 
     if(isMobileDevice()){
-        console.log("Mobile Device"); 
-        positionCalendarCenter(); 
-        return 
+        const removingClasses = ['large', 'left-from', 'right-to', 'from']; 
+        removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+        calendar.classList.add('mobile');
+        calendar.classList.add('to');
+        return; 
     }
-
-    /* Positioning to right */
-    const calendar = document.querySelector('.calendar'); 
-    calendar.style.left = ''; 
-    calendar.style.right = 0; 
+    else{
+        const removingClasses = ['mobile', 'from', 'to', 'left-from']; 
+        removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+        calendar.classList.add('large'); 
+        calendar.classList.add('right-to'); 
+    }
 }
-
 /* GENERATE CALENDER */
 const days = document.querySelector('.days'); 
 
@@ -226,5 +213,46 @@ monthPicker.onclick = e => {
 }
 
 
+function isFromDateField(){
+    const classes = calendar.className.split(' '); 
+    return classes.includes('from') || classes.includes('left-from'); 
+}
 
-/* Styling Position of calender for smaller device */
+
+const repositionCalendar = () => {
+    let taskclasses = taskTimeSpanField.className.split(' ');
+    if(taskclasses.includes('show')) {
+        if(isMobileDevice()){
+            if(isFromDateField()){
+                const removingClasses = ['large', 'left-from', 'right-to', 'to']; 
+                removingClasses.forEach(cls => {calendar.classList.remove(cls)}); 
+                calendar.classList.add('mobile');
+                calendar.classList.add('from');
+            }else{
+                const removingClasses = ['large', 'left-from', 'right-to', 'from']; 
+                removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+                calendar.classList.add('mobile');
+                calendar.classList.add('to');
+            }
+        }else{
+            if(isFromDateField()){
+                const removingClasses = ['mobile', 'from', 'to', 'right']; 
+                removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+                calendar.classList.add('large'); 
+                calendar.classList.add('left-from'); 
+            }
+            else{
+                const removingClasses = ['mobile', 'from', 'to', 'left-from']; 
+                removingClasses.forEach(cls => calendar.classList.remove(cls)); 
+                calendar.classList.add('large'); 
+                calendar.classList.add('right-to');
+            }
+        }
+    } 
+}
+
+
+
+window.onresize = ev => {
+    repositionCalendar(); 
+}; 

@@ -1,0 +1,6 @@
+Classes I will have to the calendar element
+
+Mobile device: mobile and (from OR to)
+Larger Screen Size:large AND (left-from OR right-to)
+
+All these classes are [mutually exclusive]

@@ -1,0 +1,13 @@
+Challenges: Positioning calendar approprialtely depending upon screen size and which date field was selected. 
+
+Strategies: Created seperate classes for for each task. 
+Large.from.date ==> large and left-from
+Large.to.date ==> large and right-to
+
+Mobile.from.date ==> mobile and from
+Mobile.to.date ==> mobile and to
+
+Specify appropriate css styles to each calss. 
+
+Manipulated classes with JS on calendar element 
+
